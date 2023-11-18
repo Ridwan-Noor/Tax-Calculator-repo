@@ -1,0 +1,38 @@
+.app-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.notification {
+background-color: #f8d7da;
+border: 1px solid #f5c6cb;
+color: #721c24;
+padding: 30px; /* Adjusted padding for a larger box */
+text-align: center;
+position: fixed;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%);
+}
+
+.notification-content {
+max-width: 600px; /* Adjusted max-width for a larger box */
+margin: 0 auto;
+}
+
+button {
+background-color: transparent;
+border: 1px solid #721c24;
+color: #721c24;
+padding: 10px 20px; /* Adjusted padding for a larger button */
+cursor: pointer;
+margin-top: 15px; /* Adjusted margin for more space between the message and the button */
+}
+
+button:hover {
+background-color: #721c24;
+color: #fff;
+}
+  
