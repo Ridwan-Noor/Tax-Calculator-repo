@@ -44,6 +44,11 @@ function UserProfile() {
                   </Link>      
               </div>
               <div className="nav-item">
+                  <Link to='/notifications' className="nav-link">
+                      Notifications
+                  </Link>      
+              </div>
+              <div className="nav-item">
                   <Link to='/' className="nav-link">
                       Log Out
                   </Link>                     

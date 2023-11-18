@@ -8,6 +8,7 @@ import './css/AdminDashboard.css';
 import './css/IncomeTaxCalc.css';
 import './css/login.css';
 import './css/userProfile.css';
+import './css/Notifications.css';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

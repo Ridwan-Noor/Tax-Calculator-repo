@@ -5,6 +5,7 @@ const login_info_users_schema = new mongoose.Schema({
         lastName: String,
         email: String,
         password: String,  
+        role: { type: String, default: "Normal" }  
     }, {
         collection: 'login_info_users' // preventing auto add 's' in mongodb table 
     }

@@ -13,6 +13,7 @@ import UpdateProfile from "./components/updateProfile.jsx";
 import CalculateLandTax from "./components/calculateLandTax.jsx";
 import LandCriteria from "./components/landcriteria.jsx";
 import AdminDashboard from "./components/admindashboard.jsx";
+import Notifications from "./components/Notifications.jsx";
 
 
 function App() {
@@ -33,6 +34,7 @@ function App() {
         <Route path='/calculatelandtax' element={<CalculateLandTax/>} >  </Route>
         <Route path='/landcriteria' element={<LandCriteria/>} >  </Route>
         <Route path='/admindashboard' element={<AdminDashboard/>} >  </Route>
+        <Route path='/notifications' element={<Notifications/>} >  </Route>
       </Routes>
     </BrowserRouter>
   );
