@@ -1,0 +1,40 @@
+
+/**{
+    border: solid red 1px;
+}*/
+
+.inc-update-form-cont{
+    /*background-color: rgb(215, 215, 215);*/
+    display: flex;
+    justify-content: center;
+    /*align-items: center;*/
+    width: 100%;
+    margin: 0px 0 140px 0;
+    padding: 100px 0 200px 0;
+}
+
+.inc-update-form-cont form{
+    background-color: rgb(255, 255, 255);
+    border-radius: 30px;
+    padding: 20px 35px 50px 16px;
+}
+
+.inc-update-cont{
+    background-color: rgb(128, 208, 255);
+}
+
+.inc-update{
+    margin-left: 50px;
+}
+
+.inc-update-inp{
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+
+.inc-update-title{
+    margin: 20px 40px;
+    font-size: 22px;
+}
+
+
