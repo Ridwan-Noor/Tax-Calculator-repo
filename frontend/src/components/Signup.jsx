@@ -1,10 +1,13 @@
 
 import { useState } from "react";
+import React, {useContext} from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
+import {UserContext} from "../userContext";
 
 function Signup() {
+  const {setU} = useContext(UserContext);
   const [firstName, setFirstName] = useState()
   const [lastName, setLastName] = useState()
   const [email, setEmail] = useState()
@@ -16,6 +19,7 @@ function Signup() {
     axios.post('http://localhost:5000/signup', { firstName, lastName, email, password }) // sending json body to server for uploading to DB
       .then((result) => {
         console.log(result)  // showing response which came back from the server
+        setU(email)
         navigate("/addProfileInformation")  // go to login page after registering
       })
 

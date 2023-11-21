@@ -4,64 +4,109 @@
 //import {useNavigate} from "react-router-dom";
 
 
-function Notifications() {
+//function Notifications() {
 
-    //const [showNotification, setShowNotification] = useState(false);
-    //const [notificationMessage, setNotificationMessage] = useState('');
+//    const [showNotification, setShowNotification] = useState(false);
+//    const [notificationMessage, setNotificationMessage] = useState('');
   
-    //const handleShowNotification = (message) => {
-    //  setNotificationMessage(message);
-    //  setShowNotification(true);
+//    const handleShowNotification = (message) => {
+//      setNotificationMessage(message);
+//      setShowNotification(true);
   
-    //  // Automatically close the notification after a certain time (e.g., 3 seconds)
-    //  setTimeout(() => {
-    //    setShowNotification(false);
-    //  }, 3000);
-    //};
+//      // Automatically close the notification after a certain time (e.g., 3 seconds)
+//      setTimeout(() => {
+//        setShowNotification(false);
+//      }, 3000);
+//    };
   
-    //const handleCloseNotification = () => {
-    //  setShowNotification(false);
-    //};
+//    const handleCloseNotification = () => {
+//      setShowNotification(false);
+//    };
 
-    return(
-      <>
-        {/*<nav>
-          <div className="nav-title" href="#">
-              Tax Calculator
-          </div>
-          <div className="nav-items" >
-              <div className="nav-item">
-                  <Link to='/' className="nav-link">
-                      Home
-                  </Link>      
-              </div>
-              <div className="nav-item">
-                  <Link to='/login' className="nav-link active">
-                      Login
-                  </Link>      
-              </div>
-              <div className="nav-item">
-                  <Link to='/signup' className="nav-link">
-                      Sign Up
-                  </Link>                     
-              </div>
-          </div>
-        </nav>
+//    return(
+//      <>
+//        <nav>
+//          <div className="nav-title" href="#">
+//              Tax Calculator
+//          </div>
+//          <div className="nav-items" >
+//              <div className="nav-item">
+//                  <Link to='/' className="nav-link">
+//                      Home
+//                  </Link>      
+//              </div>
+//              <div className="nav-item">
+//                  <Link to='/login' className="nav-link active">
+//                      Login
+//                  </Link>      
+//              </div>
+//              <div className="nav-item">
+//                  <Link to='/signup' className="nav-link">
+//                      Sign Up
+//                  </Link>                     
+//              </div>
+//          </div>
+//        </nav>
         
+//    <div className="app-container">
+//      <h1></h1>
+//      <button onClick={() => handleShowNotification('Hello, this is a notification!')}>
+//        Show Notification
+//      </button>
+
+//      {showNotification && (
+//        <Notification message={notificationMessage} onClose={handleCloseNotification} />
+//      )}
+//    </div>
+
+//      </>
+
+//    )
+//}
+//export default Notifications;
+
+
+import React, { useState } from 'react';
+
+const Notification = ({ message, onClose }) => (
+  <div className="notification">
+    <div className="notification-content">
+      <p>{message}</p>
+      <button onClick={onClose}>Close</button>
+    </div>
+  </div>
+);
+
+const Notifications = () => {
+  const [showNotification, setShowNotification] = useState(false);
+  const [notificationMessage, setNotificationMessage] = useState('');
+
+  const handleShowNotification = (message) => {
+    setNotificationMessage(message);
+    setShowNotification(true);
+
+    
+    //setTimeout(() => {
+    //  setShowNotification(false);
+    //}, 3000);
+  };
+
+  const handleCloseNotification = () => {
+    setShowNotification(false);
+  };
+
+  return (
     <div className="app-container">
-      <h1></h1>
-      <button onClick={() => handleShowNotification('Hello, this is a notification!')}>
+      {/*<h1></h1>*/}
+      <button onClick={() => handleShowNotification('Dear User, your tax payment is up-to-date!')}>
         Show Notification
       </button>
 
       {showNotification && (
         <Notification message={notificationMessage} onClose={handleCloseNotification} />
       )}
-    </div>*/}
-
-      </>
-
-    )
-}
+    </div>
+  );
+};
 
 export default Notifications;

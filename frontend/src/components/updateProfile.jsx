@@ -1,60 +1,71 @@
 //import "bootstrap/dist/css/bootstrap.min.css";
 //import '../index.css'; 
-import {useState} from "react";
-import {Link} from 'react-router-dom';
+import { useState, useEffect } from "react";
+import React, { useContext } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { UserContext } from "../userContext";
 
 function UpdateProfile() {
-    const [firstName, setFirstName] = useState("")
-    const [lastName, setLastName] = useState("")
-    const [email, setEmail] = useState("")
-    const [sex, setSex] = useState("")
-    const [nid_number, setNID] = useState("")
-    const [profession, setProfession] = useState("")
-    const [dob, setDOB] = useState("")
-    const navigate = useNavigate() 
-
-    const handleSubmit = (e) => {  // form submit
-        e.preventDefault()
-        axios.post('http://localhost:5000/updateProfile', {firstName, lastName, email, sex, nid_number, profession, dob}) // sending json body to server for uploading to DB
-        .then( (result) => {
-            console.log(result)  // showing response which came back from the server
-            console.log("Successful")
-            navigate("/userProfile")
-        })
-
-        .catch(err => console.log(err))
+  const navigate = useNavigate()
+  const { u, setU } = useContext(UserContext);
+  console.log(u)
+  useEffect(() => {
+    if (u == null) {
+      navigate("/login");
     }
+  }, [u, navigate]);
 
-    return (
 
-      <>
+  const [firstName, setFirstName] = useState("")
+  const [lastName, setLastName] = useState("")
+  //const [email, setEmail] = useState("")
+  const [sex, setSex] = useState("")
+  const [nid_number, setNID] = useState("")
+  const [profession, setProfession] = useState("")
+  const [dob, setDOB] = useState("")
 
-<nav>
-          <div className="nav-title" href="#">
-              Tax Calculator
+  const handleSubmit = (e) => {  // form submit
+    e.preventDefault()
+    axios.post('http://localhost:5000/updateProfile', { firstName, lastName, u, sex, nid_number, profession, dob }) // sending json body to server for uploading to DB
+      .then((result) => {
+        console.log(result)  // showing response which came back from the server
+        console.log("Successful")
+        navigate("/userProfile")
+      })
+
+      .catch(err => console.log(err))
+  }
+
+  return (
+
+    <>
+
+      <nav>
+        <div className="nav-title" href="#">
+          Tax Calculator
+        </div>
+        <div className="nav-items" >
+          <div className="nav-item">
+            <Link style={{ backgroundColor: '#32CD32' }} to='/userProfile' className="nav-link">
+              My Profile
+            </Link>
           </div>
-          <div className="nav-items" >
-              <div className="nav-item">
-                  <Link style={{backgroundColor:'#32CD32'}}to='/userProfile' className="nav-link">
-                      My Profile
-                  </Link>      
-              </div>
-              <div className="nav-item">
-                  <Link to='/' className="nav-link">
-                      Home
-                  </Link>      
-              </div>
-              <div className="nav-item">
-                  <Link to='/signup' className="nav-link">
-                      Log Out
-                  </Link>                     
-              </div>
+          <div className="nav-item">
+            <Link to='/' className="nav-link" onClick={() => setU(null)}>
+              Home
+            </Link>
           </div>
+          <div className="nav-item">
+            <Link to='/signup' className="nav-link" onClick={() => setU(null)}>
+              Log Out
+            </Link>
+          </div>
+        </div>
       </nav>
 
-      
+
       <div className="container-box">
         <div className="box">
           <h2> Update Profile </h2>
@@ -66,8 +77,8 @@ function UpdateProfile() {
                 type="text"
                 id="firstName"
                 name="firstName"
-              //  value={formData.firstName}
-                onChange={(e)=> setFirstName(e.target.value)}
+                //  value={formData.firstName}
+                onChange={(e) => setFirstName(e.target.value)}
               />
             </div>
             <div>
@@ -76,18 +87,8 @@ function UpdateProfile() {
                 type="text"
                 id="lastName"
                 name="lastName"
-              //  value={formData.lastName}
-                onChange={(e)=> setLastName(e.target.value)}
-              />
-            </div>
-            <div>
-              <label htmlFor="email"> Email:   </label>
-              <input
-                type="text"
-                id="email"  
-                name="email"
-              //  value={formData.email}
-                onChange={(e)=> setEmail(e.target.value)}
+                //  value={formData.lastName}
+                onChange={(e) => setLastName(e.target.value)}
               />
             </div>
             <div>
@@ -100,7 +101,7 @@ function UpdateProfile() {
                     value="Male"
                     onChange={(e) => setSex(e.target.value)}
                   />
-                   Male 
+                  Male
                 </label>
                 <label>
                   <input
@@ -109,7 +110,7 @@ function UpdateProfile() {
                     value="Female"
                     onChange={(e) => setSex(e.target.value)}
                   />
-                   Female 
+                  Female
                 </label>
                 <label>
                   <input
@@ -118,7 +119,7 @@ function UpdateProfile() {
                     value="Others"
                     onChange={(e) => setSex(e.target.value)}
                   />
-                   Others 
+                  Others
                 </label>
               </div>
             </div>
@@ -128,7 +129,7 @@ function UpdateProfile() {
                 type="text"
                 id="nid"
                 name="nid"
-                onChange={(e)=> setNID(e.target.value)}
+                onChange={(e) => setNID(e.target.value)}
 
               />
             </div>
@@ -138,7 +139,7 @@ function UpdateProfile() {
                 type="text"
                 id="profession"
                 name="profession"
-                onChange={(e)=> setProfession(e.target.value)}
+                onChange={(e) => setProfession(e.target.value)}
               />
             </div>
             <div>
@@ -147,7 +148,7 @@ function UpdateProfile() {
                 type="date"
                 id="dob"
                 name="dob"
-                onChange={(e)=> setDOB(e.target.value)}
+                onChange={(e) => setDOB(e.target.value)}
               />
             </div>
             <button type="submit">
@@ -155,15 +156,15 @@ function UpdateProfile() {
             </button>
           </form>
           <Link to='/userProfile' className="btn btn-default w-100 bg-light rounded-0 text-decoration-none">
-              Back
+            Back
           </Link>
-        </div>  
+        </div>
       </div>
-      </>
-      
-      
-      
-    )
+    </>
+
+
+
+  )
 }
 
 

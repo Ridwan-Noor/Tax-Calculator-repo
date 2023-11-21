@@ -1,9 +1,23 @@
 import React, { useEffect, useState } from "react";
+import {useContext} from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import {UserContext} from "../userContext";
+import {useNavigate} from "react-router-dom";
 
 function ViewUsers() {
+  const navigate = useNavigate();
+  const {u, setU} = useContext(UserContext);
+  useEffect(() => {
+    const validids = ["admin01", "admin02", "admin03"];
+
+    if (u === null || !validids.includes(u)) {
+      navigate("/authzone");
+    }
+  }, [u, navigate]);
+
+
   const [users, setUsers] = useState([]);
   useEffect(() => {
     axios.get('http://localhost:5000/viewUsers')
@@ -29,7 +43,7 @@ function ViewUsers() {
             </Link>
           </div>
           <div  className="nav-item">
-            <Link to='/home' className="nav-link" style={{ backgroundColor: '#FF0000' }}>
+            <Link to='/home' className="nav-link" style={{ backgroundColor: '#FF0000' }} onClick={() => setU(null)}>
               Log Out
             </Link>
           </div>

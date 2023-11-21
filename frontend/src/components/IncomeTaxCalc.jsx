@@ -1,10 +1,20 @@
-import { useState} from "react";
+import { useState, useEffect} from "react";
+import React, {useContext} from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-//import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import {UserContext} from "../userContext";
 
 
 function IncomeTaxCalc() {
+    const navigate = useNavigate();
+    const {u, setU} = useContext(UserContext);
+    console.log(u)
+    useEffect(() => {
+      if (u == null) {
+        navigate("/login");
+      }
+    }, [u, navigate]);
 
     const [salary, setSalary] = useState()
     const [months_num, setMonths_num] = useState()
@@ -56,18 +66,13 @@ function IncomeTaxCalc() {
                 </div>
                 <div className="nav-items" >
                     <div className="nav-item">
-                        <Link to='/' className="nav-link active">
-                            Home
+                        <Link to='/userProfile' className="nav-link">
+                            My Profile
                         </Link>      
                     </div>
                     <div className="nav-item">
-                        <Link to='/login' className="nav-link">
-                            Login
-                        </Link>      
-                    </div>
-                    <div className="nav-item">
-                        <Link to='/signup' className="nav-link">
-                            Sign Up
+                        <Link to='/login' className="nav-link" style={{ backgroundColor: '#FF0000' }} onClick={() => setU(null)}>
+                            Log Out
                         </Link>                     
                     </div>
                 </div>

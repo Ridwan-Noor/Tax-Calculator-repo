@@ -1,8 +1,18 @@
-import React from "react";
-import {Link} from 'react-router-dom';
-
+import React, {useContext, useEffect} from 'react';
+import { Link } from 'react-router-dom';
+import { UserContext } from "../userContext";
+import { useNavigate } from "react-router-dom";
 
 const LandCriteria = () => {
+  const navigate = useNavigate();
+  const { u } = useContext(UserContext);
+  console.log(u)
+  useEffect(() => {
+    if (u == null) {
+      navigate("/login");
+    }
+  }, [u, navigate]);
+
   return (
     <div style={{ textAlign: 'center', marginTop: '50px' }}>
       <div style={{ backgroundColor: '#8FBC8F', border: '1px solid #ddd', padding: '20px', borderRadius: '80px', maxWidth: '80%', margin: 'auto' }}>
@@ -42,7 +52,7 @@ const LandCriteria = () => {
           </tbody>
         </table>
       </div>
-      <Link style={{color: '#333'}}to="/calculatelandtax"> Back </Link>
+      <Link style={{ color: '#333' }} to="/calculatelandtax"> Back </Link>
     </div>
   );
 };

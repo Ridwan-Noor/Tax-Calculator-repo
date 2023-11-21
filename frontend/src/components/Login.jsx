@@ -1,9 +1,13 @@
 import {useState} from "react";
+import React, {useContext} from 'react';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
 import {useNavigate} from "react-router-dom";
+import {UserContext} from "../userContext";
 
 function Login() {
+    const {setU} = useContext(UserContext);
+
     const [email, setEmail] = useState()
     const [password, setPassword] = useState()
     const navigate = useNavigate() 
@@ -14,6 +18,7 @@ function Login() {
         .then( (result) => { 
             console.log(result)  // showing response which came back from the server
             if(result.data === "Success"){
+                setU(email)
                 navigate("/userProfile") // go to home page after login
             }
               
