@@ -8,10 +8,12 @@ const { checkUser } = require("./middleware/authMiddleware");
 const login_info_users_model = require("./models/login_info_users_model.js")
 const admin_creds_model = require("./models/admin_creds_model.js")
 const incomeTaxVariables_model = require("./models/incomeTaxVariables_model.js")
+const user_queries_model = require("./models/user_queries_model.js")
+const admin_messages_model = require("./models/admin_messages_model.js")
 
 const session = require("express-session");
 const store = new session.MemoryStore();
-const user_info_model = require("./models/user_info_model.js");
+const user_info_model = require("./models/user_info_model.js"); 
 
 
 const maxAge = 60 * 30 * 1000;
@@ -341,6 +343,37 @@ app.put('/incUpdate', (req, res) => {
         .then(res.json("Updated"))
         .catch(err => res.json(err))
 })
+
+app.post('/userQuery', (req,res)=> {
+    //console.log(req.body)
+    const { u, fullName, topic, message } = req.body;
+    const query_json = {
+        email : u, 
+        fullName : fullName,
+        topic : topic, 
+        message : message
+    };
+    //console.log(query_json)
+    user_queries_model.create( query_json ) // uploading body given by client to DB
+    .then( (user_query) =>  res.json(user_query) )  // responding back the uploaded body to client
+    .catch( err => res.json(err) )
+})
+
+app.post('/adminMessage', (req,res)=> {
+    //console.log(req.body)
+    //const { userEmail, adminName, topic, message } = req.body;
+    //const query_json = {
+    //    email : u, 
+    //    fullName : fullName,
+    //    topic : topic, 
+    //    message : message
+    //}; 
+    //console.log(query_json)
+    admin_messages_model.create( req.body ) // uploading body given by client to DB
+    .then( (admin_message) =>  res.json(admin_message) )  // responding back the uploaded body to client
+    .catch( err => res.json(err) )
+})
+
 ///////////////////////////////////
 
 
