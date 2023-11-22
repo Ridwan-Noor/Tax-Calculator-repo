@@ -58,6 +58,19 @@ const AdminDashboard = () => {
       .catch(err => console.log(err))
   }
 
+  const [userEmail, setUserEmail] = useState()
+  const [adminName, setAdminName] = useState() 
+  const [topic, setTopic] = useState()
+  const [message, setMessage] = useState()
+  const handleMessageSubmit = (e) => {  // form submit
+    e.preventDefault()
+    axios.post('http://localhost:5000/adminMessage', { userEmail, adminName, topic, message }) // sending json body to server for uploading to DB
+      .then((result) => {
+        console.log(result)  // showing response which came back from the server
+      })
+
+      .catch(err => console.log(err))
+  }
 
 
   return (
@@ -211,6 +224,59 @@ const AdminDashboard = () => {
           </button>
 
         </form>
+      </div>
+
+      <div className="admin-contact-cont">
+        <div className="admin-contact-form-container" >
+          <h2>Message to user</h2>
+          <form onSubmit={handleMessageSubmit}>
+          <label>
+              User Email:
+              <input
+                type="text"
+                name="email"
+                //value={formData.email}
+                onChange={(e) => setUserEmail(e.target.value)}
+                required
+              />
+            </label>
+            <br />
+            <label>
+              Admin Name:
+              <input
+                type="text"
+                name="fullName"
+                //value={formData.email}
+                onChange={(e) => setAdminName(e.target.value)}
+                required
+              />
+            </label>
+            <br />
+            <label>
+              Topic:
+              <input
+                type="text"
+                name="topic"
+                //value={formData.name}
+                onChange={(e) => setTopic(e.target.value)}
+                required
+              />
+            </label>
+            <br />
+
+            <label>
+              Message:
+              <textarea
+                name="message"
+                //value={formData.message}
+                onChange={(e) => setMessage(e.target.value)}
+                required
+              />
+            </label>
+            <br />
+            <button type="submit">Submit</button>
+          </form>
+        </div>
       </div>
 
     </>

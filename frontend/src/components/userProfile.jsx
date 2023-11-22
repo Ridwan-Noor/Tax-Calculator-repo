@@ -36,6 +36,19 @@ function UserProfile() {
       .catch((err) => console.log(err));
   }, [u, email]);
 
+  const [fullName, setFullName] = useState()
+  const [topic, setTopic] = useState()
+  const [message, setMessage] = useState()
+  const handleSubmit = (e) => {  // form submit
+    e.preventDefault()
+    axios.post('http://localhost:5000/userQuery', { u, fullName, topic, message }) // sending json body to server for uploading to DB
+      .then((result) => {
+        console.log(result)  // showing response which came back from the server
+      })
+
+      .catch(err => console.log(err))
+  }
+
   return (
 
 
@@ -112,6 +125,7 @@ function UserProfile() {
         </div>
       </div>
 
+
       <div className='user-home-container'>
         <div className='user-tax-types'>
           <div className='user-tax-type'>
@@ -135,6 +149,50 @@ function UserProfile() {
           </div>
         </div>
       </div>
+
+
+      <div className="user-contact-cont">
+        <div className="user-contact-form-container" >
+          <h2>Contact Us</h2>
+          <form onSubmit={handleSubmit}>
+            <label>
+              Full Name:
+              <input
+                type="text"
+                name="fullName"
+                //value={formData.email}
+                onChange={(e) => setFullName(e.target.value)}
+                required
+              />
+            </label>
+            <br />
+            <label>
+              Topic:
+              <input
+                type="text"
+                name="topic"
+                //value={formData.name}
+                onChange={(e) => setTopic(e.target.value)}
+                required
+              />
+            </label>
+            <br />
+
+            <label>
+              Message:
+              <textarea
+                name="message"
+                //value={formData.message}
+                onChange={(e) => setMessage(e.target.value)}
+                required
+              />
+            </label>
+            <br />
+            <button type="submit">Submit</button>
+          </form>
+        </div>
+      </div>
+
 
     </>
   );
