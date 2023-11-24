@@ -17,7 +17,7 @@ function AdminMessages() {
     }
   }, [u, navigate]);
 
-  const [users, setUsers] = useState(null); // Set initial state to null
+  //const [users, setUsers] = useState(null); // Set initial state to null
   const email = useState(u); // Set the default email address
   const [messages, setMessages] = useState(null);
   

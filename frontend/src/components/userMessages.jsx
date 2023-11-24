@@ -3,9 +3,9 @@ import { useContext } from 'react';
 import axios from "axios";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Link } from 'react-router-dom'; // Import Link for navigation
-import income_tax_image from "../images/incomeTax.jpg";
-import land_tax_image from "../images/landTax.jpg";
-import road_tax_image from "../images/roadTax.jpg";
+//import income_tax_image from "../images/incomeTax.jpg";
+//import land_tax_image from "../images/landTax.jpg";
+//import road_tax_image from "../images/roadTax.jpg";
 import { UserContext } from "../userContext";
 import { useNavigate } from "react-router-dom";
 
@@ -20,7 +20,7 @@ function UserMessages() {
   }, [u, navigate]);
 
 
-  const [users, setUsers] = useState(null); // Set initial state to null
+  //const [users, setUsers] = useState(null); // Set initial state to null
   const email = useState(u); // Set the default email address
   const [messages, setMessages] = useState(null);
   useEffect(() => {
@@ -84,6 +84,7 @@ function UserMessages() {
               <ul className="list-group">
                 {messages.map((message) => (
                   <li  className="list-group-item">
+                    <strong>Admin Name:</strong> {message.adminName} <br />
                     <strong>Subject:</strong> {message.topic} <br />
                     <strong>Message:</strong> {message.message}
                     <button
