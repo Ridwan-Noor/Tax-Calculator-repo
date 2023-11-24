@@ -76,7 +76,7 @@ function UserMessages() {
         </div>
       </nav>
 
-      <div className="container-fluid user-messages-container">
+      {/*<div className="container-fluid user-messages-container">
         <div className="row justify-content-center align-items-center">
           <div style={{paddingTop:'100px'}} className="col-md-8">
             <h2 style={{backgroundColor:'#32CD20', padding:'15px'}} className="text-center mb-4">Messages from Admin</h2>
@@ -94,6 +94,7 @@ function UserMessages() {
                       Delete
                     </button>
                   </li>
+                  
                 ))}
               </ul>
             ) : (
@@ -101,7 +102,70 @@ function UserMessages() {
             )}
           </div>
         </div>
-      </div>
+      </div>*/}
+
+      {messages && messages.length > 0 ? (
+        <div className="user-messages-container">
+          <div>
+            <h2>Messages from admin</h2>
+          </div>
+          <table className="user-table">
+            <thead>
+              <tr>
+                <th>Admin Name</th>
+                <th>Topic</th>
+                <th>Message</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {messages.map((message) => (
+                <tr >
+                  <td>{message.adminName}</td>
+                  <td>{message.topic}</td>
+                  <td>{message.message}</td>
+                  <td>
+                    <button onClick={() => handleDeleteMessage(message._id)}>
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>          
+        </div>
+
+      ) : (
+        <p className="text-center">No messages available.</p>
+      )}
+
+    {/*<div>
+      <h2>USER QUERRIES</h2>
+      <table className="admin-table">
+        <thead>
+          <tr>
+            <th>Admin Name</th>
+            <th>Topic</th>
+            <th>Message</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {messages.map((message) => (
+            <tr >
+              <td>{message.adminName}</td>
+              <td>{message.topic}</td>
+              <td>{message.message}</td>
+              <td>
+                <button onClick={() => handleDeleteMessage(message._id)}>
+                  Delete
+                </button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>*/}
     </>
   );
 }

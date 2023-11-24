@@ -9,6 +9,8 @@ import './css/IncomeTaxCalc.css';
 import './css/login.css';
 import './css/userProfile.css';
 import './css/Notifications.css';
+import './css/userMessages.css';
+import './css/adminMessages.css';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

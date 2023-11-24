@@ -69,7 +69,7 @@ function AdminMessages() {
         </div>
       </nav>
 
-      <div style={{ backgroundColor: '#B0C4DE', display: 'flex', justifyContent: 'center', alignItems: 'center', height: '80%' }} className="container-fluid user-messages-container" >
+      {/*<div style={{ backgroundColor: '#B0C4DE', display: 'flex', justifyContent: 'center', alignItems: 'center', height: '80%' }} className="container-fluid user-messages-container" >
         <div className="row justify-content-center align-items-center" >
           <div className="col-md-8" style={{  width: '500px' }} >
             <h2 style={{backgroundColor: '#708080', width: '500px', paddingTop:'80px',  paddingBottom:'5px'}} className="text-center mb-4"> User Queries </h2>
@@ -95,7 +95,45 @@ function AdminMessages() {
             )}
           </div>
         </div>
-      </div>
+      </div>*/}
+
+
+      {messages && messages.length > 0 ? (
+          <div className="admin-messages-container">
+            <div className="admin-messages-cont">
+              <h2>User Messages</h2>
+              {messages.map((message) => (
+                <div className="admin-message-box">
+                  <div className="admin-message-delete">
+                    <button
+                          className="btn btn-danger btn-sm "
+                          onClick={() => handleDeleteMessage(message._id)}
+                        >
+                          Delete
+                    </button>                  
+                  </div>                  
+                  <div className="admin-message-subject">
+                    <strong>Topic:</strong> {message.topic}
+                  </div>
+                  <div className="admin-message-content">
+                    <strong>User Name:</strong> {message.fullName}
+                  </div>
+                  <div className="admin-message-content">
+                    <strong>User Email:</strong> {message.email}
+                  </div>
+                  <div className="admin-message-content">
+                    <strong>Message:</strong> {message.message}
+                  </div>
+
+                </div>
+                
+              ))}
+            </div>
+
+          </div>
+      ) : (
+        <p className="text-center">No messages available.</p>
+      )}
     </>
   );
 }
