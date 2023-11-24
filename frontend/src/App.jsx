@@ -16,7 +16,8 @@ import LandCriteria from "./components/landcriteria.jsx";
 import AdminDashboard from "./components/admindashboard.jsx";
 import Notifications from "./components/Notifications.jsx";
 import { UserContext } from "./userContext.jsx";
-
+import UserMessages from "./components/userMessages.jsx";
+import AdminMessages from "./components/adminMessages.jsx";
 
 function App() {
 
@@ -42,6 +43,8 @@ function App() {
           <Route path='/landcriteria' element={<LandCriteria />} >  </Route>
           <Route path='/admindashboard' element={<AdminDashboard />} >  </Route>
           <Route path='/notifications' element={<Notifications />} >  </Route>
+          <Route path='/userMessages' element={<UserMessages />} >  </Route>
+          <Route path='/adminMessages' element={<AdminMessages />} >  </Route>
 
         </Routes>
       </UserContext.Provider>
