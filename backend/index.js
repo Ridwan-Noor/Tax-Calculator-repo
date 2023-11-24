@@ -137,6 +137,44 @@ app.get("/viewUsers", (req, res) => {
 })
 
 
+app.get("/userMessages", (req, res) => {
+    const { email } = req.query;
+    admin_messages_model.find({ userEmail: email })
+        .then(messages => res.json(messages))
+        .catch(err => res.json(err))
+
+})
+
+app.delete("/deleteMessage/:id", (req, res) => {
+    const messageId = req.params.id;
+    admin_messages_model.findByIdAndDelete(messageId)
+      .then(() => res.json({ success: true }))
+      .catch((error) => {
+        console.error(error);
+        res.status(500).json({ error: "Internal Server Error" });
+      });
+  });
+
+app.get("/adminMessages", (req, res) => {
+    const { adminID } = req.query;
+    user_queries_model.find()
+        .then(messages => res.json(messages))
+        .catch(err => res.json(err))
+
+})
+
+app.delete("/admindeleteMessage/:id", (req, res) => {
+    const messageId = req.params.id;
+    user_queries_model.findByIdAndDelete(messageId)
+      .then(() => res.json({ success: true }))
+      .catch((error) => {
+        console.error(error);
+        res.status(500).json({ error: "Internal Server Error" });
+      });
+  });
+
+
+
 app.get("/userProfile", (req, res) => {
     const { email } = req.query; // Use req.query to get parameters from the query string
     user_info_model.findOne({ email: email })
@@ -321,6 +359,7 @@ app.get('/incVariables', (req, res) => {
         .catch(err => res.json(err))
 })
 
+
 app.put('/incUpdate', (req, res) => {
     const id = "6555baf90a5c355a6f1db3ac"
     incomeTaxVariables_model.findByIdAndUpdate({ _id: id }, {
@@ -410,6 +449,7 @@ app.post('/calculateLandTax', (req, res) => {
 
     res.json({ taxValue: val });
 });
+
 
 
 
