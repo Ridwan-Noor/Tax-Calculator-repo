@@ -21,7 +21,6 @@ function UserProfile() {
 
 
   const [users, setUsers] = useState(null); // Set initial state to null
-  //const [email, setEmail] = useState("aritra@gmail"); // Set the default email address
   const email = useState(u); // Set the default email address
   useEffect(() => {
     //setEmail("aritra@gmail") // remove after setEmail is used
@@ -65,8 +64,8 @@ function UserProfile() {
             </Link>
           </div>
           <div className="nav-item">
-            <Link to='/' className="nav-link" onClick={() => setU(null)}>
-              Home
+            <Link to='/usermessages' className="nav-link">
+              Messages
             </Link>
           </div>
           <div className="nav-item">

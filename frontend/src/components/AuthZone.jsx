@@ -33,7 +33,7 @@ function Login() {
         </div>
 
       </nav>
-      <div className="container-box" style={{ backgroundColor: '#B0C4DE', display: 'top', justifyContent: 'center', alignItems: 'center', height: '90vh', marginTop: '0px' }}>
+      <div className="container-box" style={{ backgroundColor: '#B0C4DE', display: 'top', justifyContent: 'center', alignItems: 'center', height: '100vh', width:'100%', marginTop: '0px' }}>
         <div className="box">
           <h2> Admin Login </h2>
           <form onSubmit={handleSubmit}>

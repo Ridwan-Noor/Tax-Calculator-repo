@@ -86,8 +86,8 @@ const AdminDashboard = () => {
             </Link>
           </div>
           <div className="nav-item">
-            <Link to='/' className="nav-link">
-              Site Settings
+            <Link to='/adminmessages' className="nav-link">
+              Messages
             </Link>
           </div>
           <div className="nav-item">
