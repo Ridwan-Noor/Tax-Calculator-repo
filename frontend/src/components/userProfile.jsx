@@ -8,6 +8,7 @@ import land_tax_image from "../images/landTax.jpg";
 import road_tax_image from "../images/roadTax.jpg";
 import { UserContext } from "../userContext";
 import { useNavigate } from "react-router-dom";
+import Notifications from "./Notifications.jsx"
 
 function UserProfile() {
   const navigate = useNavigate();
@@ -68,11 +69,11 @@ function UserProfile() {
               Messages
             </Link>
           </div>
-          <div className="nav-item">
+          {/*<div className="nav-item">
             <Link to='/notifications' className="nav-link">
               Notifications
             </Link>
-          </div>
+          </div>*/}
           <div className="nav-item">
             <Link to='/login' className="nav-link" onClick={() => setU(null)}>
               Log Out
@@ -81,7 +82,7 @@ function UserProfile() {
         </div>
       </nav>
 
-
+      <Notifications/>
       <div className="container-fluid user-home-cont1">
         <div className="row justify-content-center align-items-center">
           {users ? (
