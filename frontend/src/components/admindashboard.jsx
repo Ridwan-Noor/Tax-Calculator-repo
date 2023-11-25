@@ -67,6 +67,7 @@ const AdminDashboard = () => {
     axios.post('http://localhost:5000/adminMessage', { userEmail, adminName, topic, message }) // sending json body to server for uploading to DB
       .then((result) => {
         console.log(result)  // showing response which came back from the server
+        document.getElementById("admin-contact-form").reset();
       })
 
       .catch(err => console.log(err))
@@ -229,7 +230,7 @@ const AdminDashboard = () => {
       <div className="admin-contact-cont">
         <div className="admin-contact-form-container" >
           <h2>Message to user</h2>
-          <form onSubmit={handleMessageSubmit}>
+          <form onSubmit={handleMessageSubmit} id="admin-contact-form">
           <label>
               User Email:
               <input

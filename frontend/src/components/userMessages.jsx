@@ -63,11 +63,11 @@ function UserMessages() {
               Messages
             </Link>
           </div>
-          <div className="nav-item">
+          {/*<div className="nav-item">
             <Link to='/notifications' className="nav-link">
               Notifications
             </Link>
-          </div>
+          </div>*/}
           <div className="nav-item">
             <Link to='/login' className="nav-link" onClick={() => setU(null)}>
               Log Out

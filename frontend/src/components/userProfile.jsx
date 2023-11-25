@@ -44,6 +44,7 @@ function UserProfile() {
     axios.post('http://localhost:5000/userQuery', { u, fullName, topic, message }) // sending json body to server for uploading to DB
       .then((result) => {
         console.log(result)  // showing response which came back from the server
+        document.getElementById("user-contact-form").reset();
       })
 
       .catch(err => console.log(err))
@@ -154,7 +155,7 @@ function UserProfile() {
       <div className="user-contact-cont">
         <div className="user-contact-form-container" >
           <h2>Contact Us</h2>
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit} id="user-contact-form">
             <label>
               Full Name:
               <input
