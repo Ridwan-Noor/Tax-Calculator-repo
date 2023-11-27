@@ -13,7 +13,7 @@ import Notifications from "./Notifications.jsx"
 function UserProfile() {
   const navigate = useNavigate();
   const { u, setU } = useContext(UserContext);
-  console.log("current user:", u)
+  //console.log("current user:", u)
   useEffect(() => {
     if (u == null) {
       navigate("/login");
@@ -27,10 +27,9 @@ function UserProfile() {
     //setEmail("aritra@gmail") // remove after setEmail is used
 
     // Fetch user data based on the provided email address
-    axios
-      .get(`http://localhost:5000/userProfile?email=${u}`)
+    axios.get(`http://localhost:5000/userProfile?email=${u}`)
       .then((user) => {
-        console.log("User data from API:", user.data);
+        //console.log("User data from API:", user.data);
         setUsers(user.data);
       })
       .catch((err) => console.log(err));
@@ -50,9 +49,18 @@ function UserProfile() {
       .catch(err => console.log(err))
   }
 
+  const [taxInfo, setTaxInfo] = useState()
+  useEffect(() => {
+    // Fetch user data based on the provided email address
+    axios.get(`http://localhost:5000/govTaxInfo?u=${u}`)
+      .then((info) => {
+        setTaxInfo(info);
+        //console.log(taxInfo)
+      })
+      .catch((err) => console.log(err));
+  }, [taxInfo, setTaxInfo, u]);
+
   return (
-
-
     <>
 
       <nav>
@@ -70,11 +78,16 @@ function UserProfile() {
               Messages
             </Link>
           </div>
-          {/*<div className="nav-item">
-            <Link to='/notifications' className="nav-link">
-              Notifications
+          <div className="nav-item">
+            <Link to='/addCardInformation' className="nav-link">
+              Add Card Info
             </Link>
-          </div>*/}
+          </div>
+          <div className="nav-item">
+            <Link to='/updateCardInformation' className="nav-link">
+              Update Card Info
+            </Link>
+          </div>
           <div className="nav-item">
             <Link to='/login' className="nav-link" onClick={() => setU(null)}>
               Log Out
@@ -83,7 +96,7 @@ function UserProfile() {
         </div>
       </nav>
 
-      <Notifications/>
+      <Notifications />
       <div className="container-fluid user-home-cont1">
         <div className="row justify-content-center align-items-center">
           {users ? (
@@ -150,6 +163,36 @@ function UserProfile() {
           </div>
         </div>
       </div>
+
+      {
+        taxInfo ? (
+          <div className="gov-tax">
+            <div>
+              <p>Tax Year: {taxInfo.data.year}</p>
+            </div>
+            <div>
+              <p>Status: {taxInfo.data.status}</p>
+            </div>
+            <div>
+              <p>Income Tax: {taxInfo.data.incomeTax}</p>
+            </div>
+            <div>
+              <p>Land Tax: {taxInfo.data.landTax}</p>
+            </div>
+            <div>
+              <p>Road Tax: {taxInfo.data.roadTax}</p>
+            </div>
+            <div>
+              <Link to='/userProfile' className="btn btn-primary">
+                Pay Tax
+              </Link>
+            </div>
+          </div>
+        ) : (
+          <p>Tax info loading...</p>
+        )
+      }
+
 
 
       <div className="user-contact-cont">

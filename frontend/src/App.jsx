@@ -1,6 +1,7 @@
 //import {useState} from 'react'
 import "bootstrap/dist/css/bootstrap.css" // updated
 import React, { useState, useMemo } from 'react';
+//import {useEffect} from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Signup from "./components/Signup.jsx"
 import Login from './components/Login.jsx';
@@ -18,11 +19,29 @@ import Notifications from "./components/Notifications.jsx";
 import { UserContext } from "./userContext.jsx";
 import UserMessages from "./components/userMessages.jsx";
 import AdminMessages from "./components/adminMessages.jsx";
+import AddCardInformation from "./components/addCardInformation.jsx";
+import UpdateCardInformation from "./components/updateCardInformation.jsx";
+//import {createContext} from 'react'
+
+//const UserContext = createContext()
 
 function App() {
 
   const [u, setU] = useState(null);
   const value = useMemo(() => ({ u, setU }), [u, setU]);
+
+  //useEffect(() => {
+  //  const u_storage = localStorage.getItem("u");
+  //  console.log("u_storage:", u_storage)
+  //  if( u === "" ){
+  //    setU(JSON.parse(u_storage));
+  //  }
+  //}, [u])
+
+  //useEffect(() => {
+  //  localStorage.setItem("u", JSON.stringify(u));
+  //}, [u])
+
   return (
     // redirecting to different components/page based on route
     <BrowserRouter>
@@ -45,7 +64,8 @@ function App() {
           <Route path='/notifications' element={<Notifications />} >  </Route>
           <Route path='/userMessages' element={<UserMessages />} >  </Route>
           <Route path='/adminMessages' element={<AdminMessages />} >  </Route>
-
+          <Route path='/addCardInformation' element={<AddCardInformation />} >  </Route>
+          <Route path='/updateCardInformation' element={<UpdateCardInformation />} >  </Route>
         </Routes>
       </UserContext.Provider>
     </BrowserRouter>

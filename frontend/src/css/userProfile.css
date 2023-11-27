@@ -44,7 +44,7 @@
     font-weight: 600;
     color: aliceblue;
     letter-spacing: 2px;
-    box-shadow: 0 4px 15px 0 rgb(0, 34, 0), 0 6px 20px 0 rgba(0, 250, 46, 0.262);
+    box-shadow: 0 4px 15px 0 rgb(43, 43, 43), 0 6px 20px 0 rgba(48, 48, 48, 0.262);
     text-decoration: none;
 }
 
@@ -108,3 +108,15 @@ font-size: 16px;
 .user-contact-cont button:hover {
 background-color: #0056b3;
 }
+
+.gov-tax{
+    background-color: #ccc;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 50px;
+    padding: 20px;
+}
+/*.gov-tax div{
+    margin: 0px;
+}*/

@@ -89,7 +89,7 @@ nav {
     font-weight: 600;
     color: aliceblue;
     letter-spacing: 2px;
-    box-shadow: 0 4px 15px 0 rgb(0, 34, 0), 0 6px 20px 0 rgba(0, 250, 46, 0.262);
+    box-shadow: 0 4px 15px 0 rgb(39, 39, 39), 0 6px 20px 0 rgba(33, 33, 33, 0.262);
     text-decoration: none;
 }
 

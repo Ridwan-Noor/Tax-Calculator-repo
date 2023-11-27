@@ -60,6 +60,7 @@ function AddProfileInformation() {
           </div>
         </div>
       </nav>
+      
       <div className="container-box">
         <div className="box">
           <h2> Add Profile Informations </h2>

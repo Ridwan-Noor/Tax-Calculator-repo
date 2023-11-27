@@ -10,6 +10,8 @@ const admin_creds_model = require("./models/admin_creds_model.js")
 const incomeTaxVariables_model = require("./models/incomeTaxVariables_model.js")
 const user_queries_model = require("./models/user_queries_model.js")
 const admin_messages_model = require("./models/admin_messages_model.js")
+const card_infos_model = require("./models/card_infos_model.js")
+const gov_tax_infos_model = require("./models/gov_tax_infos_model.js")
 
 const session = require("express-session");
 const store = new session.MemoryStore();
@@ -412,6 +414,74 @@ app.post('/adminMessage', (req,res)=> {
     .then( (admin_message) =>  res.json(admin_message) )  // responding back the uploaded body to client
     .catch( err => res.json(err) )
 })
+
+app.post('/addCardInformation', (req, res) => {
+
+    card_infos_model.create(req.body)
+        .then(info => {
+            if (!info) {
+                console.log(info)
+                return res.status(404).json({ message: 'Info not found' });
+            }
+            res.json(user);
+        })
+        .catch(err => {
+            res.json(err);
+        });
+});
+
+app.post('/updateCardInformation', (req, res) => {
+    const { u, cardName, cardNum, expDate, cvc, zip } = req.body;
+
+    // Create an object to store only non-null and non-empty fields
+    const updatedFields = {};
+
+    // Check and update each field
+    updatedFields.u = u;
+    if (cardName !== null && cardName !== "") {
+        updatedFields.cardName = cardName;
+    }
+
+    if (cardNum !== null && cardNum !== "") {
+        updatedFields.cardNum = cardNum;
+    }
+
+    if (expDate !== null && expDate !== "") {
+        updatedFields.expDate = expDate;
+    }
+
+    if (cvc !== null && cvc !== "") {
+        updatedFields.cvc = cvc;
+    }
+
+    if (zip !== null && zip !== "") {
+        updatedFields.zip = zip;
+    }
+
+    card_infos_model.findOneAndUpdate(
+        { u: u },
+        { $set: updatedFields },
+        { new: true }
+    )
+        .then(info => {
+            if (!info) {
+                return res.status(404).json({ message: 'User not found' });
+            }
+            res.json(info);
+        })
+        .catch(err => {
+            res.json({ message: 'Error occured!', err });
+        });
+});
+
+app.get("/govTaxInfo", (req, res) => {
+    const { u } = req.query; // Use req.query to get parameters from the query string
+    //console.log(u)
+    gov_tax_infos_model.findOne({ u: u })
+        .then(taxInfo => res.json(taxInfo))
+        .catch(err => res.json(err));
+});
+
 
 ///////////////////////////////////
 

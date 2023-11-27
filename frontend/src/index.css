@@ -7,7 +7,7 @@
 
 body {
     font-family: Arial, sans-serif;
-    background-color: rgba(68, 194, 51, 0.388);/* Changed background color to green #c1cab4 rgb(170, 208, 170) */
+    background-color: rgb(116, 116, 116);/* Changed background color to green rgba(68, 194, 51, 0.388) #c1cab4 rgb(170, 208, 170) */
     margin: 0;
     /*display: flex;
     justify-content: center;
