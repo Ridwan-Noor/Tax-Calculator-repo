@@ -21,6 +21,10 @@ import UserMessages from "./components/userMessages.jsx";
 import AdminMessages from "./components/adminMessages.jsx";
 import AddCardInformation from "./components/addCardInformation.jsx";
 import UpdateCardInformation from "./components/updateCardInformation.jsx";
+import PaymentGateway from "./components/paymentGateway.jsx";
+import SecurityKey from "./components/securityKey.jsx";
+import ChangePassword from "./components/changePassword.jsx";
+
 //import {createContext} from 'react'
 
 //const UserContext = createContext()
@@ -66,6 +70,9 @@ function App() {
           <Route path='/adminMessages' element={<AdminMessages />} >  </Route>
           <Route path='/addCardInformation' element={<AddCardInformation />} >  </Route>
           <Route path='/updateCardInformation' element={<UpdateCardInformation />} >  </Route>
+          <Route path='/paymentGateway' element={<PaymentGateway />} >  </Route>
+          <Route path='/securityKey' element={<SecurityKey />} >  </Route>
+          <Route path='/changePassword' element={<ChangePassword />} >  </Route>
         </Routes>
       </UserContext.Provider>
     </BrowserRouter>
