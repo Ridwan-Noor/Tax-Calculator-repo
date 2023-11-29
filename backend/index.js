@@ -12,6 +12,7 @@ const user_queries_model = require("./models/user_queries_model.js")
 const admin_messages_model = require("./models/admin_messages_model.js")
 const card_infos_model = require("./models/card_infos_model.js")
 const gov_tax_infos_model = require("./models/gov_tax_infos_model.js")
+const sec_keys_model = require("./models/sec_keys_model.js")
 
 const session = require("express-session");
 const store = new session.MemoryStore();
@@ -519,6 +520,97 @@ app.post('/calculateLandTax', (req, res) => {
 
     res.json({ taxValue: val });
 });
+
+
+
+
+
+app.get("/cards/:u", (req, res) => {
+    card_infos_model.find({ u: req.params.u })
+      .then(cards => res.json(cards))
+      .catch(error => res.status(500).json({ error: "Internal Server Error" }));
+  });
+  
+app.get("/taxInfo/:u", (req, res) => {
+    gov_tax_infos_model.findOne({ u: req.params.u, status: "pending" })
+        .then(taxInfo => {
+            if (taxInfo) {
+                user_info_model.findOne({ email: req.params.u })
+                    .then(user => res.json({ ...taxInfo.toObject(), ...user.toObject() }))
+                    .catch(error => res.status(500).json({ error: "Internal Server Error" }));
+            } else {
+                res.json({});
+    }
+        })
+        .catch(error => res.status(500).json({ error: "Internal Server Error" }));
+});
+  
+  // Update tax status to 'completed'
+app.post("/taxInfo/:u", (req, res) => {
+    gov_tax_infos_model.findOneAndUpdate({ u: req.params.u, status: "pending" }, { status: "completed" })
+        .then(() => res.json({ message: "Tax status updated to completed" }))
+        .catch(error => res.status(500).json({ error: "Internal Server Error" }));
+});
+
+
+app.get("/securityKey/:email", (req, res) => {
+    sec_keys_model.findOne({ email: req.params.email })
+      .then((result) => {
+        res.json(result);
+      })
+      .catch((error) => {
+        console.error("Error fetching security key:", error);
+        res.status(500).json({ error: "Internal Server Error" });
+      });
+  });
+  
+  // Create a new security key entry or update if exists
+  app.post("/securityKey", (req, res) => {
+    const { email, key } = req.body;
+    sec_keys_model.findOneAndUpdate({ email: email }, { email: email, key: key })
+      .then(() => {
+        res.json({ message: "Security key saved successfully" });
+      })
+      .catch((error) => {
+        console.error("Error saving security key:", error);
+        res.status(500).json({ error: "Internal Server Error" });
+      });
+  });
+
+
+//////////////////////////////
+// Check security key
+app.post("/securityKey", (req, res) => {
+    const { email, key } = req.body;
+    sec_keys_model.findOne({ email, key })
+      .then((existingKey) => {
+        if (existingKey) {
+          res.json({ message: "Security key saved successfully" });
+        } else {
+          res.status(401).json({ error: "Incorrect Security Key" });
+        }
+      })
+      .catch((error) => {
+        console.error("Error checking security key:", error);
+        res.status(500).json({ error: "Internal Server Error" });
+      });
+  });
+  
+  // Change password
+  app.post("/changePassword/:email", (req, res) => {
+    const { email } = req.params;
+    const { password } = req.body;
+  
+    login_info_users_model.findOneAndUpdate({ email: email }, { password: password })
+      .then(() => {
+        res.json({ message: "Password changed successfully" });
+      })
+      .catch((error) => {
+        console.error("Error changing password:", error);
+        res.status(500).json({ error: "Internal Server Error" });
+      });
+  });
+  
 
 
 
