@@ -80,6 +80,11 @@ function Login() {
                 Login
               </button>
             </form>
+            <button style={{justifyContent: "end", backgroundColor: "#2196F3", padding: "8px 15px", borderRadius: "5px", border: "none", cursor: "pointer", color: "#FFFFFF", fontSize: "12px", fontWeight: "bold", textDecoration: "none"}}>
+            <Link to="/changePassword" style={{ color: "#FFFFFF", textDecoration: "none"}}>
+                  Forgot Password?
+            </Link>
+          </button>
             <p>Create an account:</p>
             <Link to='/signup' className="btn btn-default w-100 bg-light rounded-0 text-decoration-none">
                 Sign Up

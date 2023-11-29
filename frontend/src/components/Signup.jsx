@@ -104,9 +104,18 @@ function Signup() {
             </button>
           </form>
           <p>Already Have an Account?</p>
-          <Link to='/login' className="btn btn-default w-100 bg-light rounded-0 text-decoration-none">
+          <button style={{backgroundColor: "#2196F3", padding: "10px 15px", borderRadius: "5px", border: "none", cursor: "pointer", color: "#FFFFFF", fontSize: "12px", fontWeight: "bold", textDecoration: "none"}}>
+          <Link to='/login' style={{ color: "#FFFFFF", textDecoration: "none"}} >
             Login
           </Link>
+          </button>
+          <>    </>
+
+          <button style={{backgroundColor: "#2196F3", padding: "10px 15px", borderRadius: "5px", border: "none", cursor: "pointer", color: "#FFFFFF", fontSize: "12px", fontWeight: "bold", textDecoration: "none"}}>
+            <Link to="/changePassword" style={{ color: "#FFFFFF", textDecoration: "none"}}>
+                  Forgot Password?
+            </Link>
+          </button>
         </div>      
       </div>      
     </>

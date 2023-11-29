@@ -74,7 +74,7 @@ function UserProfile() {
             </Link>
           </div>
           <div className="nav-item">
-            <Link to='/usermessages' className="nav-link">
+            <Link to='/userMessages' className="nav-link">
               Messages
             </Link>
           </div>
@@ -128,8 +128,17 @@ function UserProfile() {
                 </ul>
               </div>
               <div className="card-footer text-center">
+                <> </>
+                <Link to="/securityKey" className="btn btn-primary">
+                  Change Security Key
+                </Link>
+                <> </>
                 <Link to="/updateProfile" className="btn btn-primary">
-                  Update Profile
+                  Update Profile  
+                </Link>
+                <> </>
+                <Link to="/changePassword" className="btn btn-primary">
+                  Change Password
                 </Link>
               </div>
             </div>
@@ -183,7 +192,7 @@ function UserProfile() {
               <p>Road Tax: {taxInfo.data.roadTax}</p>
             </div>
             <div>
-              <Link to='/userProfile' className="btn btn-primary">
+              <Link to='/paymentGateway' className="btn btn-primary">
                 Pay Tax
               </Link>
             </div>
