@@ -32,12 +32,12 @@ function SecurityKey() {
         }
       })
       .catch((error) => console.error("Error fetching security key:", error));
-  }, [u]);
+  });  
 
   const generateAndSaveSecurityKey = () => {
     // Generate a new security key
     const newSecurityKey = generateRandomKey(10);
-
+ 
     // Save the new security key in the database
     axios.post("http://localhost:5000/securityKey", {
       email: u,
@@ -49,7 +49,11 @@ function SecurityKey() {
         setEmail(u);
       })
       .catch((error) => console.error("Error saving security key:", error));
-  };
+  };  
+
+
+
+
 
   const generateRandomKey = (length) => {
     const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";

@@ -25,7 +25,7 @@ function AddCardInformation() {
 
     const handleSubmit = (e) => {  // form submit
         e.preventDefault()
-        axios.post('http://localhost:5000/updateCardInformation', { u,cardName, cardNum, expDate, cvc, zip }) // sending json body to server for uploading to DB
+        axios.post('http://localhost:5000/addCardInformation', { u,cardName, cardNum, expDate, cvc, zip }) // sending json body to server for uploading to DB
         .then((result) => {
             console.log(result)  // showing response which came back from the server
             console.log("Successful")

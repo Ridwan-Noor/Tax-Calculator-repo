@@ -483,6 +483,14 @@ app.get("/govTaxInfo", (req, res) => {
         .catch(err => res.json(err));
 });
 
+app.get("/haveCardInfo", (req, res) => {
+    const { u } = req.query; // Use req.query to get parameters from the query string
+    //console.log(u)
+    card_infos_model.findOne({ u: u })
+        .then(cardInfo => res.json(cardInfo))
+        .catch(err => res.json(err));
+});
+
 
 ///////////////////////////////////
 

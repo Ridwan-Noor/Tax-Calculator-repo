@@ -34,6 +34,16 @@ function UpdateCardInformation() {
         .catch(err => console.log(err))
     }
 
+    const [cardInfo, setCardInfo] = useState()
+    useEffect(() => {
+      axios.get(`http://localhost:5000/haveCardInfo?u=${u}`)
+        .then((cInfo) => {
+          setCardInfo(cInfo)
+          console.log(cardInfo)
+        })
+        .catch((err) => console.log(err));    
+    }, [cardInfo,u])
+
     return (
         <>
             <nav>
@@ -60,31 +70,31 @@ function UpdateCardInformation() {
                     <div className="form-group row">
                         <label htmlFor="rent" className="col-sm-2 col-form-label">Name on Card:</label>
                         <div className="col-sm-10">
-                            <input type="text" className="form-control inc-inp" id="cardName" name='cardName' placeholder="Name on card" onChange={(e) => setCardName(e.target.value)} />
+                            <input type="text" className="form-control inc-inp" id="cardName" name='cardName'  placeholder={(cardInfo)?(cardInfo.data.cardName):(<p>.</p>) } onChange={(e) => setCardName(e.target.value)} />
                         </div>
                     </div>
                     <div className="form-group row">
                         <label htmlFor="medical" className="col-sm-2 col-form-label">Card Number:</label>
                         <div className="col-sm-10">
-                            <input type="text" className="form-control inc-inp" id="cardNum" name='cardNum' placeholder="Card Number" onChange={(e) => setCardNum(e.target.value)} />
+                            <input type="text" className="form-control inc-inp" id="cardNum" name='cardNum' placeholder={(cardInfo)?(cardInfo.data.cardNum):(<p>.</p>) } onChange={(e) => setCardNum(e.target.value)} />
                         </div>
                     </div>
                     <div className="form-group row">
                         <label htmlFor="transport" className="col-sm-2 col-form-label">Expiration date:</label>
                         <div className="col-sm-10">
-                            <input type="date" className="form-control inc-inp" id="expDate" name='expDate' placeholder="Date of Expiry" onChange={(e) => setExpDate(e.target.value)} />
+                            <input type="date" className="form-control inc-inp" id="expDate" name='expDate' placeholder={(cardInfo)?(cardInfo.data.expDate):(<p>.</p>) } onChange={(e) => setExpDate(e.target.value)} />
                         </div>
                     </div>
                     <div className="form-group row">
                         <label htmlFor="conveyance" className="col-sm-2 col-form-label">CVC:</label>
                         <div className="col-sm-10">
-                            <input type="number" className="form-control inc-inp" id="cvc" name='cvc' placeholder="CVC" onChange={(e) => setCvc(e.target.value)} />
+                            <input type="number" className="form-control inc-inp" id="cvc" name='cvc' placeholder={(cardInfo)?(cardInfo.data.cvc):(<p>.</p>) } onChange={(e) => setCvc(e.target.value)} />
                         </div>
                     </div>
                     <div className="form-group row">
                         <label htmlFor="incentive" className="col-sm-2 col-form-label">Zip:</label>
                         <div className="col-sm-10">
-                            <input type="number" className="form-control inc-inp" id="zip" name='zip' placeholder="Zip" onChange={(e) => setZip(e.target.value)} />
+                            <input type="number" className="form-control inc-inp" id="zip" name="zip" placeholder={(cardInfo)?(cardInfo.data.zip):(<p>.</p>) } onChange={(e) => setZip(e.target.value)} />
                         </div>
                     </div>
 

@@ -58,7 +58,17 @@ function UserProfile() {
         //console.log(taxInfo)
       })
       .catch((err) => console.log(err));
-  }, [taxInfo, setTaxInfo, u]);
+  },[u, taxInfo]);
+
+  const [cardInfo, setCardInfo] = useState()
+  useEffect(() => {
+    axios.get(`http://localhost:5000/haveCardInfo?u=${u}`)
+      .then((cInfo) => {
+        setCardInfo(cInfo)
+        //console.log(cardInfo)
+      })
+      .catch((err) => console.log(err));    
+  })
 
   return (
     <>
@@ -78,16 +88,34 @@ function UserProfile() {
               Messages
             </Link>
           </div>
-          <div className="nav-item">
+
+          {
+            (cardInfo)? (       
+                (cardInfo.data===null)? (
+                  <div className="nav-item">
+                    <Link to='/addCardInformation' className="nav-link">
+                      Add Card Info
+                    </Link>
+                  </div>
+                ):(
+                  <div className="nav-item">
+                    <Link to='/updateCardInformation' className="nav-link">
+                      Update Card Info
+                    </Link>
+                  </div>
+                )
+                           
+            ):(
+              <p>Loading...</p>
+            )
+          }
+
+          {/*<div className="nav-item">
             <Link to='/addCardInformation' className="nav-link">
               Add Card Info
             </Link>
-          </div>
-          <div className="nav-item">
-            <Link to='/updateCardInformation' className="nav-link">
-              Update Card Info
-            </Link>
-          </div>
+          </div>*/}
+
           <div className="nav-item">
             <Link to='/login' className="nav-link" onClick={() => setU(null)}>
               Log Out
