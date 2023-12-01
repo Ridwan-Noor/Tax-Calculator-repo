@@ -478,8 +478,17 @@ app.post('/updateCardInformation', (req, res) => {
 app.get("/govTaxInfo", (req, res) => {
     const { u } = req.query; // Use req.query to get parameters from the query string
     //console.log(u)
-    gov_tax_infos_model.findOne({ u: u })
-        .then(taxInfo => res.json(taxInfo))
+    gov_tax_infos_model.findOne({ u: u, status:'pending' })
+        .then((taxInfo) => {
+            //console.log(taxInfo)
+            if(taxInfo != null){
+                res.json(taxInfo) 
+            }
+            else{
+                res.json("No pending Tax")
+            }
+
+        }) 
         .catch(err => res.json(err));
 });
 
@@ -488,6 +497,14 @@ app.get("/haveCardInfo", (req, res) => {
     //console.log(u)
     card_infos_model.findOne({ u: u })
         .then(cardInfo => res.json(cardInfo))
+        .catch(err => res.json(err));
+});
+
+app.get("/notificationInfo", (req, res) => {
+    const { u } = req.query; // Use req.query to get parameters from the query string
+    //console.log(u)
+    gov_tax_infos_model.find({ u: u, status:'pending' })
+        .then(taxInfo => res.json(taxInfo)) 
         .catch(err => res.json(err));
 });
 

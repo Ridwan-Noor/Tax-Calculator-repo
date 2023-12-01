@@ -22,7 +22,7 @@ function UserProfile() {
 
 
   const [users, setUsers] = useState(null); // Set initial state to null
-  const email = useState(u); // Set the default email address
+  //const email = useState(u); // Set the default email address
   useEffect(() => {
     //setEmail("aritra@gmail") // remove after setEmail is used
 
@@ -33,7 +33,7 @@ function UserProfile() {
         setUsers(user.data);
       })
       .catch((err) => console.log(err));
-  }, [u, email]);
+  }, [u]);  
 
   const [fullName, setFullName] = useState()
   const [topic, setTopic] = useState()
@@ -45,7 +45,6 @@ function UserProfile() {
         console.log(result)  // showing response which came back from the server
         document.getElementById("user-contact-form").reset();
       })
-
       .catch(err => console.log(err))
   }
 
@@ -58,7 +57,8 @@ function UserProfile() {
         //console.log(taxInfo)
       })
       .catch((err) => console.log(err));
-  },[u, taxInfo]);
+  },[u]);
+  //console.log(taxInfo)
 
   const [cardInfo, setCardInfo] = useState()
   useEffect(() => {
@@ -68,9 +68,9 @@ function UserProfile() {
         //console.log(cardInfo)
       })
       .catch((err) => console.log(err));    
-  })
+  },[u]);
 
-  return (
+  return ( 
     <>
 
       <nav>
@@ -202,7 +202,8 @@ function UserProfile() {
       </div>
 
       {
-        taxInfo ? (
+        ( taxInfo && taxInfo.data !== "No pending Tax" ) ? (
+          //{console.log(taxInfo.length)}
           <div className="gov-tax">
             <div>
               <p>Tax Year: {taxInfo.data.year}</p>
@@ -226,7 +227,11 @@ function UserProfile() {
             </div>
           </div>
         ) : (
-          <p>Tax info loading...</p>
+          <div className="gov-tax">
+            <div>
+              <p>No Pending Tax</p>
+            </div>
+          </div>
         )
       }
 
