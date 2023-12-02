@@ -13,14 +13,19 @@ function Signup() {
   const [email, setEmail] = useState()
   const [password, setPassword] = useState()
   const navigate = useNavigate()
-
+  const [result, setResult] = useState()
+  
   const handleSubmit = (e) => {  // form submit
     e.preventDefault()
     axios.post('http://localhost:5000/signup', { firstName, lastName, email, password }) // sending json body to server for uploading to DB
       .then((result) => {
-        console.log(result)  // showing response which came back from the server
-        setU(email)
-        navigate("/addProfileInformation")  // go to login page after registering
+        console.log(result.data)  // showing response which came back from the server
+        setResult(result)
+        if(result.data !== "Email already exists"){
+          setU(email)
+          navigate("/addProfileInformation")  // go to login page after registering          
+        } 
+
       })
 
       .catch(err => console.log(err))
@@ -102,6 +107,13 @@ function Signup() {
             <button type="submit">
               Sign Up
             </button>
+
+            <div id="login-error"> 
+                {
+                  (result && result.data === "Email already exists")? (<div>{result.data}</div>):(<></>)
+                }
+            </div>
+
           </form>
           <p>Already Have an Account?</p>
           <button style={{backgroundColor: "#2196F3", padding: "10px 15px", borderRadius: "5px", border: "none", cursor: "pointer", color: "#FFFFFF", fontSize: "12px", fontWeight: "bold", textDecoration: "none"}}>

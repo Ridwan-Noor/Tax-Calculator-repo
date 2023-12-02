@@ -55,6 +55,7 @@ app.post('/signup', (req, res) => {
                     .catch(err => res.json(err))
             } else {
                 console.log("Email already exists")
+                res.json("Email already exists")
             }
         })
 })

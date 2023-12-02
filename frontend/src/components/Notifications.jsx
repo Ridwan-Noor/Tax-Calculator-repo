@@ -25,7 +25,7 @@ const Notification = ({ message, onClose }) => {     //{ message, onClose }
 
           {message.data.map((m, idx) => (
             //<p>{single_message}</p>
-            <p key={idx}>{m.incomeTax+m.landTax+m.roadTax} TK total tax pending from {m.year}</p>
+            <p key={idx}>TK {m.incomeTax+m.landTax+m.roadTax} total tax pending from {m.year}</p>
             
           ))}
 

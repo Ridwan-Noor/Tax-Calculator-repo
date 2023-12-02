@@ -11,16 +11,18 @@ function Login() {
     const [email, setEmail] = useState()
     const [password, setPassword] = useState()
     const navigate = useNavigate() 
+    const [result, setResult] = useState()
 
     const handleSubmit = (e) => {  // form submit
         e.preventDefault()
         axios.post('http://localhost:5000/login', {email, password}) // sending json body to server for validation
         .then( (result) => { 
             console.log(result)  // showing response which came back from the server
+            setResult(result)
             if(result.data === "Success"){
                 setU(email)
                 navigate("/userProfile") // go to home page after login
-            }
+            } 
               
         })
         .catch(err => console.log(err))
@@ -79,6 +81,13 @@ function Login() {
               <button type="submit">
                 Login
               </button>
+
+              <div id="login-error"> 
+                {
+                  (result && result.data !== "Success")? (<div>{result.data}</div>):(<></>)
+                }
+              </div>
+
             </form>
             <button style={{justifyContent: "end", backgroundColor: "#2196F3", padding: "8px 15px", borderRadius: "5px", border: "none", cursor: "pointer", color: "#FFFFFF", fontSize: "12px", fontWeight: "bold", textDecoration: "none"}}>
             <Link to="/changePassword" style={{ color: "#FFFFFF", textDecoration: "none"}}>
