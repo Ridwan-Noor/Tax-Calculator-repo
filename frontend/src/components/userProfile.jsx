@@ -237,13 +237,13 @@ function UserProfile() {
               <strong>Status:</strong> {taxInfo.data.status}
             </p>
             <p>
-              <strong>Income Tax:</strong> ${taxInfo.data.incomeTax}
+              <strong>Income Tax:</strong> TK {taxInfo.data.incomeTax}
             </p>
             <p>
-              <strong>Land Tax:</strong> ${taxInfo.data.landTax}
+              <strong>Land Tax:</strong> TK {taxInfo.data.landTax}
             </p>
             <p>
-              <strong>Road Tax:</strong> ${taxInfo.data.roadTax}
+              <strong>Road Tax:</strong> TK {taxInfo.data.roadTax}
             </p>
             <div>
               <Link to='/paymentGateway' className="btn btn-primary">
