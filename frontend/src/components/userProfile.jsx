@@ -203,33 +203,60 @@ function UserProfile() {
 
       {
         ( taxInfo && taxInfo.data !== "No pending Tax" ) ? (
-          //{console.log(taxInfo.length)}
-          <div className="gov-tax">
-            <div>
-              <p>Tax Year: {taxInfo.data.year}</p>
-            </div>
-            <div>
-              <p>Status: {taxInfo.data.status}</p>
-            </div>
-            <div>
-              <p>Income Tax: {taxInfo.data.incomeTax}</p>
-            </div>
-            <div>
-              <p>Land Tax: {taxInfo.data.landTax}</p>
-            </div>
-            <div>
-              <p>Road Tax: {taxInfo.data.roadTax}</p>
-            </div>
+
+          //<div className="gov-tax">
+          //  <div>
+          //    <p>Tax Year: {taxInfo.data.year}</p>
+          //  </div>
+          //  <div>
+          //    <p>Status: {taxInfo.data.status}</p>
+          //  </div>
+          //  <div>
+          //    <p>Income Tax: {taxInfo.data.incomeTax}</p>
+          //  </div>
+          //  <div>
+          //    <p>Land Tax: {taxInfo.data.landTax}</p>
+          //  </div>
+          //  <div>
+          //    <p>Road Tax: {taxInfo.data.roadTax}</p>
+          //  </div>
+          //  <div>
+          //    <Link to='/paymentGateway' className="btn btn-primary">
+          //      Pay Tax
+          //    </Link>
+          //  </div>
+          //</div>
+
+          <div className="tax-information-container">
+          <div className="white-box">
+            <h2>Tax Information</h2>
+            <p>
+              <strong>Tax Year:</strong> {taxInfo.data.year}
+            </p>
+            <p>
+              <strong>Status:</strong> {taxInfo.data.status}
+            </p>
+            <p>
+              <strong>Income Tax:</strong> ${taxInfo.data.incomeTax}
+            </p>
+            <p>
+              <strong>Land Tax:</strong> ${taxInfo.data.landTax}
+            </p>
+            <p>
+              <strong>Road Tax:</strong> ${taxInfo.data.roadTax}
+            </p>
             <div>
               <Link to='/paymentGateway' className="btn btn-primary">
                 Pay Tax
               </Link>
             </div>
           </div>
+        </div>
+
         ) : (
           <div className="gov-tax">
             <div>
-              <p>No Pending Tax</p>
+              <div>No Pending Tax</div>
             </div>
           </div>
         )
