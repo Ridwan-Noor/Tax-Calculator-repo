@@ -194,7 +194,7 @@ function UserProfile() {
           </div>
           <div className='user-tax-type'>
             <img src={road_tax_image} alt="income-tax" />
-            <Link to='/' className='user-overlay'>
+            <Link to='/calculateRoadTax' className='user-overlay'>
               Calculate <br /> Road Tax
             </Link>
           </div>

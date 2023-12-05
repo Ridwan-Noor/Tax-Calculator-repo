@@ -1,20 +1,20 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {useContext} from 'react';
 import axios from "axios";
 import {Link} from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {UserContext} from "../userContext";
-import {useNavigate} from "react-router-dom";
+//import {useNavigate} from "react-router-dom";
 
 const CalculateLandTax = () => {
-  const navigate = useNavigate();
+  //const navigate = useNavigate();
   const {u, setU} = useContext(UserContext);
   console.log(u)
-  useEffect(() => {
-    if (u == null) {
-      navigate("/login");
-    }
-  }, [u, navigate]);
+  //useEffect(() => {
+  //  if (u == null) {
+  //    navigate("/login");
+  //  }
+  //}, [u, navigate]);
 
   const [landOrigin, setLandOrigin] = useState("");
   const [acres, setAcres] = useState("");
@@ -44,12 +44,25 @@ const CalculateLandTax = () => {
       <div className="nav-title" href="#">
           Tax Calculator
       </div>
+
       <div className="nav-items" >
-          <div className="nav-item">
-              <Link to='/userProfile' className="nav-link">
-                  My Profile
-              </Link>      
-          </div>
+
+          {
+            (u==null)? (
+                <div className="nav-item">
+                    <Link to='/Home' className="nav-link">
+                        Home
+                    </Link>      
+                </div>
+            ):(
+                <div className="nav-item">
+                    <Link to='/userProfile' className="nav-link">
+                        My Profile
+                    </Link>      
+                </div>                            
+            )
+          }
+
           <div className="nav-item">
               <Link to='/login' className="nav-link" onClick={() => setU(null)}>
                   Log Out

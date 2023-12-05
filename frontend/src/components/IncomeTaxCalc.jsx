@@ -1,20 +1,20 @@
-import { useState, useEffect} from "react";
+import { useState} from "react";
 import React, {useContext} from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import { useNavigate } from "react-router-dom";
+//import { useNavigate } from "react-router-dom";
 import {UserContext} from "../userContext";
 
 
 function IncomeTaxCalc() {
-    const navigate = useNavigate();
+    //const navigate = useNavigate();
     const {u, setU} = useContext(UserContext);
     console.log(u)
-    useEffect(() => {
-      if (u == null) {
-        navigate("/login");
-      }
-    }, [u, navigate]);
+    //useEffect(() => {
+    //  if (u == null) {
+    //    navigate("/login");
+    //  }
+    //}, [u, navigate]);
 
     const [salary, setSalary] = useState()
     const [months_num, setMonths_num] = useState()
@@ -65,11 +65,23 @@ function IncomeTaxCalc() {
                     Tax Calculator
                 </div>
                 <div className="nav-items" >
-                    <div className="nav-item">
-                        <Link to='/userProfile' className="nav-link">
-                            My Profile
-                        </Link>      
-                    </div>
+
+                    {
+                        (u==null)? (
+                            <div className="nav-item">
+                                <Link to='/Home' className="nav-link">
+                                    Home
+                                </Link>      
+                            </div>
+                        ):(
+                            <div className="nav-item">
+                                <Link to='/userProfile' className="nav-link">
+                                    My Profile
+                                </Link>      
+                            </div>                            
+                        )
+                    }
+
                     <div className="nav-item">
                         <Link to='/login' className="nav-link" style={{ backgroundColor: '#FF0000' }} onClick={() => setU(null)}>
                             Log Out

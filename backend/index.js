@@ -509,8 +509,22 @@ app.get("/notificationInfo", (req, res) => {
         .catch(err => res.json(err));
 });
 
+app.post('/calculateRoadTax', (req, res) => {
+    const { cc, seatNum } = req.body;   // storing json body elements to variables which is sent by client
+    //console.log(cc, seatNum)
+    let tax = 0
+    if( Number(cc)<=1500 ){
+        tax += 25000        
+    } else {
+        tax += 40000
+    }
+    tax += (1000*Number(seatNum)) 
+    console.log(tax)
+    res.json(tax)
 
-///////////////////////////////////
+});
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 app.post('/calculateLandTax', (req, res) => {

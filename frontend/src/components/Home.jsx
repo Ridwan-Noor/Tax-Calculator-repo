@@ -50,7 +50,7 @@ function Home() {
                     </div>
                     <div className='tax-type'>
                         <img src={road_tax_image} alt="income-tax"  />
-                        <Link to='/' className='overlay'>
+                        <Link to='/calculateRoadTax' className='overlay'>
                             Calculate <br/> Road Tax
                         </Link>
                     </div>

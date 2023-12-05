@@ -24,6 +24,7 @@ import UpdateCardInformation from "./components/updateCardInformation.jsx";
 import PaymentGateway from "./components/paymentGateway.jsx";
 import SecurityKey from "./components/securityKey.jsx";
 import ChangePassword from "./components/changePassword.jsx";
+import CalculateRoadTax from "./components/calculateRoadTax.jsx";
 
 //import {createContext} from 'react'
 
@@ -73,6 +74,7 @@ function App() {
           <Route path='/paymentGateway' element={<PaymentGateway />} >  </Route>
           <Route path='/securityKey' element={<SecurityKey />} >  </Route>
           <Route path='/changePassword' element={<ChangePassword />} >  </Route>
+          <Route path='/calculateRoadTax' element={<CalculateRoadTax />} >  </Route>
         </Routes>
       </UserContext.Provider>
     </BrowserRouter>
