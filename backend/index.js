@@ -624,54 +624,70 @@ app.post('/updatePass', (req, res) => {
     const updatedFields = {};
     updatedFields.password = newPass
 
-    // Create an object to store only non-null and non-empty fields
     login_info_users_model.findOneAndUpdate(
         { email: email },
         { $set: updatedFields },
         { new: true }
     )
     .then(user => {
-        if (!user) {
-            return res.status(404).json({ message: 'User not found' });
-        }
+        //if (!user) {
+        //    return res.status(404).json({ message: 'User not found' });
+        //}
         res.json(user);
     })
     .catch(err => {
         res.json({ message: 'Error occured!', err });
-    });
+    });            
+
+
 });
 
 
 /////////////////////////////////###################################################################
 app.post("/sendEmail", (req, res) => {
     const { email, randomKey } = req.body;
-    // app password: mpnl tkyj qfxo vzvj
-    var nodemailer = require('nodemailer');
 
-    var transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-        user: 'taxCalculatorBd@gmail.com',
-        pass: 'mpnl tkyj qfxo vzvj'
-    }
-    });
+    //check if user exists
+    login_info_users_model.find({email})
+    .then(checkUser => {
+        console.log(checkUser)
+        if(checkUser.length!==0){
+            //sending email
+            // app password: mpnl tkyj qfxo vzvj
+            var nodemailer = require('nodemailer');
+            var transporter = nodemailer.createTransport({
+            service: 'gmail',
+            auth: {
+                user: 'taxCalculatorBd@gmail.com',
+                pass: 'mpnl tkyj qfxo vzvj'
+            }
+            });
 
-    var mailOptions = { 
-    from: 'taxCalculatorBd@gmail.com',
-    to: email,
-    subject: 'Security key for verification on Tax Calculator',
-    text: 'Enter the key on website to change password.\n'+'This is your security key for verification: '+ randomKey
-    };
+            var mailOptions = { 
+            from: 'taxCalculatorBd@gmail.com',
+            to: email,
+            subject: 'Security key for verification on Tax Calculator',
+            text: 'Enter the key on website to change password.\n'+'This is your security key for verification: '+ randomKey
+            };
 
-    transporter.sendMail(mailOptions, function(error, info){
-    if (error) {
-        console.log(error);
-        res.json("error sending mail")
-    } else {
-        console.log('Email sent: ' + info.response);
-        res.json("Key sent to email")
-    }
-    });    
+            transporter.sendMail(mailOptions, function(error, info){
+            if (error) {
+                console.log(error);
+                res.json("error sending mail")
+            } else {
+                console.log('Email sent: ' + info.response);
+                res.json("Key sent to email")
+            }
+            });   
+
+        } else {
+            res.json("user not found")
+        }
+    })
+
+
+
+ 
 });
 
 

@@ -31,7 +31,8 @@ function ChangePassword() {
   }
   makeKey()
 
-  const [emailSent, setEmailSent] = useState() //response of sending email
+  const [emailRes, setEmailRes] = useState() //response of sending email
+  //const [emailSent, setEmailRes] = useState() //response of sending email
   const handleEmailSubmit = (e) => {
     e.preventDefault();
     //add random key to list
@@ -40,7 +41,7 @@ function ChangePassword() {
     axios.post("http://localhost:5000/sendEmail", { email, randomKey })
       .then((response) => {
         console.log(response)
-        setEmailSent(response.data)
+        setEmailRes(response.data)
       })
       .catch((error) => {
         console.error("Error checking security key:", error);
@@ -93,7 +94,7 @@ function ChangePassword() {
         <button type="submit" style={{ backgroundColor: "#2196F3", color: "#fff", padding: "10px 20px", borderRadius: "4px", border: "none", cursor: "pointer" }}>Send security key</button>
 
         {
-          (emailSent)? (<div style={{ marginTop:"10px",color:"#2196F3",fontSize:"19px" }}>Key sent to email</div>):(<></>)
+          (emailRes)? (<div style={{ marginTop:"10px",color:"#2196F3",fontSize:"19px" }}>{emailRes}</div>):(<></>)
         }
       </form>
       
