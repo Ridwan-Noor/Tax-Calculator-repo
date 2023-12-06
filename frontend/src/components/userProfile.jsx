@@ -156,11 +156,11 @@ function UserProfile() {
                 </ul>
               </div>
               <div className="card-footer text-center">
-                <> </>
+                {/*<> </>
                 <Link to="/securityKey" className="btn btn-primary">
                   Change Security Key
                 </Link>
-                <> </>
+                <> </>*/}
                 <Link to="/updateProfile" className="btn btn-primary">
                   Update Profile  
                 </Link>
@@ -203,29 +203,6 @@ function UserProfile() {
 
       {
         ( taxInfo && taxInfo.data !== "No pending Tax" ) ? (
-
-          //<div className="gov-tax">
-          //  <div>
-          //    <p>Tax Year: {taxInfo.data.year}</p>
-          //  </div>
-          //  <div>
-          //    <p>Status: {taxInfo.data.status}</p>
-          //  </div>
-          //  <div>
-          //    <p>Income Tax: {taxInfo.data.incomeTax}</p>
-          //  </div>
-          //  <div>
-          //    <p>Land Tax: {taxInfo.data.landTax}</p>
-          //  </div>
-          //  <div>
-          //    <p>Road Tax: {taxInfo.data.roadTax}</p>
-          //  </div>
-          //  <div>
-          //    <Link to='/paymentGateway' className="btn btn-primary">
-          //      Pay Tax
-          //    </Link>
-          //  </div>
-          //</div>
 
           <div className="tax-information-container">
           <div className="white-box">

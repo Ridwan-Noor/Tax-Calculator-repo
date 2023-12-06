@@ -593,32 +593,88 @@ app.post("/taxInfo/:u", (req, res) => {
 });
 
 
-app.get("/securityKey/:email", (req, res) => {
-    sec_keys_model.findOne({ email: req.params.email })
-      .then((result) => {
-        res.json(result);
-      })
-      .catch((error) => {
-        console.error("Error fetching security key:", error);
-        res.status(500).json({ error: "Internal Server Error" });
-      });
-  });
+//app.get("/securityKey/:email", (req, res) => {
+//    sec_keys_model.findOne({ email: req.params.email })
+//      .then((result) => {
+//        res.json(result);
+//      })
+//      .catch((error) => {
+//        console.error("Error fetching security key:", error);
+//        res.status(500).json({ error: "Internal Server Error" });
+//      });
+//  });
   
   // Create a new security key entry or update if exists
-  app.post("/securityKey", (req, res) => {
-    const { email, key } = req.body;
-    sec_keys_model.findOneAndUpdate({ email: email }, { email: email, key: key })
-      .then(() => {
-        res.json({ message: "Security key saved successfully" });
-      })
-      .catch((error) => {
-        console.error("Error saving security key:", error);
-        res.status(500).json({ error: "Internal Server Error" });
-      });
-  });
+//  app.post("/securityKey", (req, res) => {
+//    const { email, key } = req.body;
+//    sec_keys_model.findOneAndUpdate({ email: email }, { email: email, key: key })
+//      .then(() => {
+//        res.json({ message: "Security key saved successfully" });
+//      })
+//      .catch((error) => {
+//        console.error("Error saving security key:", error);
+//        res.status(500).json({ error: "Internal Server Error" });
+//      });
+//  });
+
+app.post('/updatePass', (req, res) => {
+    const { email, newPass } = req.body;
+
+    // Create an object to store only non-null and non-empty fields
+    const updatedFields = {};
+    updatedFields.password = newPass
+
+    // Create an object to store only non-null and non-empty fields
+    login_info_users_model.findOneAndUpdate(
+        { email: email },
+        { $set: updatedFields },
+        { new: true }
+    )
+    .then(user => {
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+        res.json(user);
+    })
+    .catch(err => {
+        res.json({ message: 'Error occured!', err });
+    });
+});
 
 
-//////////////////////////////
+/////////////////////////////////###################################################################
+app.post("/sendEmail", (req, res) => {
+    const { email, randomKey } = req.body;
+    // app password: mpnl tkyj qfxo vzvj
+    var nodemailer = require('nodemailer');
+
+    var transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+        user: 'taxCalculatorBd@gmail.com',
+        pass: 'mpnl tkyj qfxo vzvj'
+    }
+    });
+
+    var mailOptions = { 
+    from: 'taxCalculatorBd@gmail.com',
+    to: email,
+    subject: 'Security key for verification on Tax Calculator',
+    text: 'Enter the key on website to change password.\n'+'This is your security key for verification: '+ randomKey
+    };
+
+    transporter.sendMail(mailOptions, function(error, info){
+    if (error) {
+        console.log(error);
+        res.json("error sending mail")
+    } else {
+        console.log('Email sent: ' + info.response);
+        res.json("Key sent to email")
+    }
+    });    
+});
+
+
 // Check security key
 app.post("/securityKey", (req, res) => {
     const { email, key } = req.body;
@@ -637,19 +693,19 @@ app.post("/securityKey", (req, res) => {
   });
   
   // Change password
-  app.post("/changePassword/:email", (req, res) => {
-    const { email } = req.params;
-    const { password } = req.body;
+//  app.post("/changePassword/:email", (req, res) => {
+//    const { email } = req.params;
+//    const { password } = req.body;
   
-    login_info_users_model.findOneAndUpdate({ email: email }, { password: password })
-      .then(() => {
-        res.json({ message: "Password changed successfully" });
-      })
-      .catch((error) => {
-        console.error("Error changing password:", error);
-        res.status(500).json({ error: "Internal Server Error" });
-      });
-  });
+//    login_info_users_model.findOneAndUpdate({ email: email }, { password: password })
+//      .then(() => {
+//        res.json({ message: "Password changed successfully" });
+//      })
+//      .catch((error) => {
+//        console.error("Error changing password:", error);
+//        res.status(500).json({ error: "Internal Server Error" });
+//      });
+//  });
   
 
 

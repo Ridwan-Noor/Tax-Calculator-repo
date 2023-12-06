@@ -4,37 +4,67 @@ import { useNavigate } from "react-router-dom";
 import {Link} from 'react-router-dom';
 
 function ChangePassword() {
-  const [email, setEmail] = useState("");
-  const [securityKey, setSecurityKey] = useState("");
-  const [newPassword, setNewPassword] = useState("");
-  const [error, setError] = useState("");
   const navigate = useNavigate();
+  const [email, setEmail] = useState();
+  const [enteredKey, setEnteredKey] = useState()
+  const [randomKey, setRandomKey] = useState([])
+  const [changePass, setChangePass] = useState(false)  // flag
+  const [newPass, setNewPass] = useState()
+  //const [securityKey, setSecurityKey] = useState("");
+  //const [newPassword, setNewPassword] = useState("");
+  //const [error, setError] = useState("");
+  //const navigate = useNavigate();
 
-  const handleFormSubmit = (e) => {
+  const generateRandomKey = (length) => {
+    const characters = "ABCDEFGHJKMNOPQRSTUVWXYZabcdefghjkmnopqrstuvwxyz0123456789";
+    let result = "";
+    for (let i = 0; i < length; i++) {
+      result += characters.charAt(Math.floor(Math.random() * characters.length));
+    }
+    return result;
+  };
+
+  const makeKey = () => {
+    if(randomKey.length === 0){
+      setRandomKey( prevList => [...prevList, generateRandomKey(6)] )     
+    }
+  }
+  makeKey()
+
+  const [emailSent, setEmailSent] = useState() //response of sending email
+  const handleEmailSubmit = (e) => {
     e.preventDefault();
-
-    // Check security key
-    axios.post("http://localhost:5000/securityKey", { email, key: securityKey })
+    //add random key to list
+    //setRandomKey( prevList => [...prevList, generateRandomKey(6)] )
+    console.log("in", randomKey)
+    axios.post("http://localhost:5000/sendEmail", { email, randomKey })
       .then((response) => {
-        // Security key is correct
-        if (response.data.message === "Security key saved successfully") {
-          // Change password
-          axios.post(`http://localhost:5000/changePassword/${email}`, { password: newPassword })
-            .then(() => {
-              navigate("/login");
-            })
-            .catch((error) => {
-              console.error("Error changing password:", error);
-              setError("An error occurred while changing the password.");
-            });
-        } else {
-          // Incorrect security key
-          setError("Incorrect Security Key");
-        }
+        console.log(response)
+        setEmailSent(response.data)
       })
       .catch((error) => {
         console.error("Error checking security key:", error);
-        setError("An error occurred while checking the security key.");
+      });
+  };
+
+  const handleEnteredKey = (e) =>{
+    console.log(randomKey, enteredKey)
+    e.preventDefault();
+    if(enteredKey === randomKey[0]){
+      setChangePass(true)
+    }
+  };
+
+  const handleNewPassSubmit = (e) => {
+    e.preventDefault();
+
+    axios.post("http://localhost:5000/updatePass", { email, newPass })
+      .then((response) => {
+        console.log(response)
+        navigate("/login")
+      })
+      .catch((error) => {
+        console.error("Error updating password:", error);
       });
   };
 
@@ -52,25 +82,54 @@ function ChangePassword() {
 
                 </nav>
 
-    <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", height: "100vh" }}>
-      <form style={{padding:'60px 50px', backgroundColor: "#f0f0f0", borderRadius: "8px", textAlign: "center" }} onSubmit={handleFormSubmit}>
-        <h2 style={{ marginBottom: "30px", color: "#2196F3" }}>Change Password</h2>
-        {error && <p style={{ color: "red" }}>{error}</p>}
+    <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", marginTop:"130px" }}>
+      <form style={{padding:'30px 40px', backgroundColor: "#f0f0f0", borderRadius: "8px", textAlign: "center" }} onSubmit={handleEmailSubmit}>
+        <h2 style={{ marginBottom: "30px", color: "#2196F3" }}>Enter email to get security key</h2>
+        {/*{error && <p style={{ color: "red" }}>{error}</p>}*/}
         <label style={{ marginRight: "10px" }}>
           Email:
-          <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} style={{ marginLeft: "10px", padding: "8px", borderRadius: "4px", border: "1px solid #ccc" }} required />
+          <input type="email" onChange={(e) => setEmail(e.target.value)} style={{ marginLeft: "10px", padding: "8px", borderRadius: "4px", border: "1px solid #ccc" }} required />
         </label>
+        <button type="submit" style={{ backgroundColor: "#2196F3", color: "#fff", padding: "10px 20px", borderRadius: "4px", border: "none", cursor: "pointer" }}>Send security key</button>
+
+        {
+          (emailSent)? (<div style={{ marginTop:"10px",color:"#2196F3",fontSize:"19px" }}>Key sent to email</div>):(<></>)
+        }
+      </form>
+      
+    </div>
+
+    <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", marginTop:"50px" }}>
+      <form style={{padding:'30px 40px', backgroundColor: "#f0f0f0", borderRadius: "8px", textAlign: "center" }} onSubmit={handleEnteredKey}>
+        <h2 style={{ marginBottom: "30px", color: "#2196F3" }}>Enter security key</h2>
+        {/*{error && <p style={{ color: "red" }}>{error}</p>}*/}
         <label style={{ marginRight: "10px" }}>
-          Security Key:
-          <input type="text" value={securityKey} onChange={(e) => setSecurityKey(e.target.value)} style={{ marginLeft: "10px", padding: "8px", borderRadius: "4px", border: "1px solid #ccc" }} required />
+          Key:
+          <input type="text"  onChange={(e) => setEnteredKey(e.target.value)} style={{ marginLeft: "10px", padding: "8px", borderRadius: "4px", border: "1px solid #ccc" }} required />
         </label>
-        <label style={{ marginRight: "10px" }}>
-          New Password:
-          <input type="password" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} style={{ marginLeft: "10px", padding: "8px", borderRadius: "4px", border: "1px solid #ccc" }} required />
-        </label>
-        <button type="submit" style={{ backgroundColor: "#2196F3", color: "#fff", padding: "10px 20px", borderRadius: "4px", border: "none", cursor: "pointer" }}>Change Password</button>
+        <button type="submit" style={{ backgroundColor: "#2196F3", color: "#fff", padding: "10px 20px", borderRadius: "4px", border: "none", cursor: "pointer" }}>Verify</button>
       </form>
     </div>
+    {/*{console.log(randomKey, enteredKey)}*/}
+
+    {console.log(changePass)}
+    {
+      (changePass===true)? (
+        //{console.log(changePass)}
+        <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", marginTop:"50px" }}>
+        <form style={{padding:'30px 40px', backgroundColor: "#f0f0f0", borderRadius: "8px", textAlign: "center" }} onSubmit={handleNewPassSubmit}>
+          <h2 style={{ marginBottom: "30px", color: "#2196F3" }}>Enter new password:</h2>
+          {/*{error && <p style={{ color: "red" }}>{error}</p>}*/}
+          <label style={{ marginRight: "10px" }}>
+            New Password:
+            <input type="text"  onChange={(e) => setNewPass(e.target.value)} style={{ marginLeft: "10px", padding: "8px", borderRadius: "4px", border: "1px solid #ccc" }} required />
+          </label>
+          <button type="submit" style={{ backgroundColor: "#2196F3", color: "#fff", padding: "10px 20px", borderRadius: "4px", border: "none", cursor: "pointer" }}>Submit</button>
+        </form>
+        </div>
+      ):(<></>)
+    }
+
     </>
   );
   
