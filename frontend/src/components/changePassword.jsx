@@ -37,7 +37,7 @@ function ChangePassword() {
     e.preventDefault();
     //add random key to list
     //setRandomKey( prevList => [...prevList, generateRandomKey(6)] )
-    console.log("in", randomKey)
+    //console.log("in", randomKey)
     axios.post("http://localhost:5000/sendEmail", { email, randomKey })
       .then((response) => {
         console.log(response)
@@ -48,7 +48,7 @@ function ChangePassword() {
       });
   };
 
-  const handleEnteredKey = (e) =>{
+  const handleEnteredKey = (e) =>{  
     console.log(randomKey, enteredKey)
     e.preventDefault();
     if(enteredKey === randomKey[0]){
