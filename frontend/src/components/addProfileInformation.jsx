@@ -33,7 +33,7 @@ function AddProfileInformation() {
       .then((result) => {
         console.log(result)  // showing response which came back from the server
         console.log("Successful")
-        navigate("/securityKey")
+        navigate("/userProfile")
       })
 
       .catch(err => console.log(err))
